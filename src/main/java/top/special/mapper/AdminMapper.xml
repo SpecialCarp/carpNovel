@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.special.mapper.AdminMapper">
+	<!-- 增
+	<insert id="saveAdmin" parameterType="admin" keyProperty="id" useGeneratedKeys="true">
+		insert into 
+		admin (name, account, password, iphone, user_access, book_access, comment_access, booklist_access, create) 
+		values (#{name}, #{account}, #{password}, #{iphone}, #{userAccess}, #{bookAccess}, #{commentAccess}, #{booklistAccess}, #{create})
+	</insert> -->
+	
+	<!-- 禁用
+	<update id="disableAdmin" parameterType="Integer" keyProperty="id" useGeneratedKeys="true">
+		update admin set `status` = if(`status`=1,0,1)  where id = #{id}
+	</update>
+	<update id="disableAdminList" parameterType="List" keyProperty="id" useGeneratedKeys="true">
+		update admin set `status` = 0  where id in 
+		<foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</update> -->
+	
+	<!-- 改
+	<update id="changeAdminInfoById" parameterType="admin" keyProperty="id" useGeneratedKeys="true">
+		update admin 
+		<set>
+			<if test="password != null">
+				password = #{password}
+			</if>
+			<if test="iphone != null">
+				iphone = #{iphone}
+			</if>
+		</set>
+		from admin where id = #{id}
+	</update>
+	
+	<update id="changeAdminAccessById" parameterType="admin" keyProperty="id" useGeneratedKeys="true">
+		update admin
+		<set>
+			<if test="userAccess != null">
+				user_access = #{userAccess}
+			</if>
+			<if test="bookAccess != null">
+				book_access = #{bookAccess}
+			</if>
+			<if test="commentAccess != null">
+				comment_access = #{commentAccess}
+			</if>
+			<if test="booklistAccess != null">
+				booklist_access = #{booklistAccess}
+			</if>
+		</set>
+		from admin where id = #{id}
+	</update> -->
+	
+	<!-- 查 -->
+	<select id="findAdminByAccountAndPassword" parameterType="admin" resultType="admin">
+		select `name`,account,`password` from admin 
+		where account = #{account} and `password` = #{password} and `status` = 1
+	</select>
+	
+	<!-- <select id="findAdminByIdOrAccountOrIphone" parameterType="admin" resultType="admin">
+		select * from admin where 
+		<choose>
+			<when test="id != null">
+				id == #{id}
+			</when>
+			<when test="account != null">
+				account == #{account}
+			</when>
+			<when test="iphone != iphone">
+				iphone == #{iphone}
+			</when>
+			<otherwise>
+				1 == 0
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAdminByName" parameterType="name" resultType="Admin">
+		<bind name="pattern_name" value="'%'+name+'%'" />
+		select * from admin where name like #{pattern_name}
+	</select>
+	
+	<select id="findAdminByAccess" parameterType="admin" resultMap="Admin">
+		select * from admin
+		<where>
+			<if test="userAccess != null">
+				and user_access = #{userAccess}
+			</if>
+			<if test="bookAccess != null">
+				and user_access = #{userAccess}
+			</if>
+			<if test="commentAccess != null">
+				and user_access = #{userAccess}
+			</if>
+			<if test="booklistAccess != null">
+				and user_access = #{userAccess}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findNameById" parameterType="Integer" resultType="Admin">
+		select id,name from admin where id = #{id}
+	</select> -->
+	
+	<select id="findAdminAll" resultType="admin">
+		select * from admin
+	</select>
+	
+</mapper>
