@@ -15,8 +15,21 @@
 	<!-- 扫描内容 -->
 	<context:component-scan base-package="top.special.controller" />
 	<context:component-scan base-package="top.special.api" />
-	<!-- 开启注解配置 -->
-	<mvc:annotation-driven />
+	
+	<!-- 开启注解配置
+	<mvc:annotation-driven /> -->
+	
+	<!-- 手动装配自定义类型的转换器 -->
+	<mvc:annotation-driven conversion-service="conversionService" />
+	<!-- 配置日期转换器 -->
+	<bean id="conversionService" 
+		class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<bean class="top.special.util.convert.DateConvert"/>
+			</set>
+		</property>
+	</bean>
 
 	<!-- 配置静态资源的访问映射，此配置中的文件，将不被前端控制器拦截 -->
 	<mvc:resources location="/js/" mapping="/js/**" />
