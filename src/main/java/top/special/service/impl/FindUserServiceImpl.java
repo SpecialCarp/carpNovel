@@ -16,8 +16,24 @@ public class FindUserServiceImpl implements FindUserService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	public List<User> findAll() {
-		return userMapper.findUserAll();
+	public List<User> findAll(User user) {
+		if(user.getAccount() != null && user.getAccount() != "") {
+			return userMapper.findUserAllByAccount(user);
+		}else if(user.getUsername() != null && user.getUsername() != "") {
+			return userMapper.findUserAllByUsername(user);
+		}else {
+			return userMapper.findUserAll();
+		}
+	}
+
+	public List<User> findDisableAll(User user) {
+		if(user.getAccount() != null && user.getAccount() != "") {
+			return userMapper.findDisableUserAllByAccount(user);
+		}else if(user.getUsername() != null && user.getUsername() != "") {
+			return userMapper.findDisableUserAllByUsername(user);
+		}else {
+			return userMapper.findDisableUserAll();
+		}
 	}
 
 }
