@@ -48,12 +48,12 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<!-- <mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/*"/>
-			<mvc:exclude-mapping path="/login"/>
-			<bean class="top.special.interceptor.AdminInfoInterceptor" />
+			<mvc:mapping path="/back/user/*"/>
+			<mvc:exclude-mapping path=""/>
+			<bean class="top.special.util.interceptor.AdminAccessInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+	</mvc:interceptors>
 	
 </beans>

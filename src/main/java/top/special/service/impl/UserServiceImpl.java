@@ -1,0 +1,42 @@
+package top.special.service.impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+import top.special.mapper.UserMapper;
+import top.special.pojo.User;
+import top.special.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserMapper userMapper;
+	
+	public List<Object> findByCondition(Integer pageNo, User user, Date oldCreate, Date newCreate) {
+		// 每页显示记录数
+		Integer pageSize=10;
+		// 下一个方法使用分页查询
+		PageHelper.startPage(pageNo, pageSize);
+		List<User> userList = userMapper.findByCondition(user, oldCreate, newCreate);
+		// 处理分页查询的详细信息
+		PageInfo<User> pageInfo=new PageInfo<User>(userList);
+		
+		List<User> userAllList = userMapper.findByCondition(user, oldCreate, newCreate);
+		
+		List<Object> list = new ArrayList<Object>();
+		
+		list.add(pageInfo);
+		list.add(userAllList);
+		
+		return list;
+	}
+
+}

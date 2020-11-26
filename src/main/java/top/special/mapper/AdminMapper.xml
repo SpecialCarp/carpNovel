@@ -55,7 +55,7 @@
 	
 	<!-- 查 -->
 	<select id="findAdminByAccountAndPassword" parameterType="admin" resultType="admin">
-		select `name`,account,`password` from admin 
+		select * from admin 
 		where account = #{account} and `password` = #{password} and `status` = 1
 	</select>
 	

@@ -1,56 +1,28 @@
 package top.special.mapper;
 
+import java.util.Date;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import top.special.pojo.User;
 
+@Mapper
 public interface UserMapper {
-	
+
 	/**
-	 **查询所有用户
+	 **根据条件查询用户
+	 * @param User(account || username, status), oldCreate, newCreate
 	 * @return List<User>
 	 */
-	public List<User> findUserAll();
-	
-	/**
-	 **根据账号精准查询用户
-	 * @param user(account)
-	 * @return List<User>
-	 */
-	public List<User> findUserAllByUsername(User user);
-	
-	/**
-	 **根据用户名模糊查询用户
-	 * @param user(username)
-	 * @return List<User>
-	 */
-	public List<User> findUserAllByAccount(User user);
+	public List<User> findByCondition(@Param("user") User user,@Param("oldCreate") Date oldCreate,@Param("newCreate") Date newCreate);
 
 	/**
 	 **禁用或启用用户账号
-	 * @param user(id)
+	 * @param id
 	 * @return rows
 	 */
-	public Integer disableUser(User user);
-
-	/**
-	 **根据账号精准查询被禁用用户
-	 * @param user
-	 * @return List<User>
-	 */
-	public List<User> findDisableUserAllByAccount(User user);
-
-	/**
-	 **根据用户名模糊查询被禁用用户
-	 * @param user(account)
-	 * @return List<User>
-	 */
-	public List<User> findDisableUserAllByUsername(User user);
-
-	/**
-	 **查询所有被禁用的用户
-	 * @return List<User>
-	 */
-	public List<User> findDisableUserAll();
+	public Integer disableUser(Integer id);
 
 }

@@ -2,37 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="top.special.mapper.UserMapper">
-	<!-- 查询所有用户 -->
-	<select id="findUserAll" resultType="user">
+	<!-- 查询所有被禁用的用户 -->
+	<select id="findByCondition" resultType="user">
 		select id, username, account, iphone, sex, email, avatar, `create`, `status` from `user` 
 		where id != 0
-	</select>
-	<!-- 根据账号精准查询用户 -->
-	<select id="findUserAllByAccount" parameterType="user" resultType="user">
-		select id, username, account, iphone, sex, email, avatar, `create`, `status` from `user` 
-		where id != 0 and account = #{account}
-	</select>
-	<!-- 根据用户名模糊查询用户 -->
-	<select id="findUserAllByUsername" parameterType="user" resultType="user">
-	<bind name="pattern_name" value="'%'+username+'%'"/>
-		select id, username, account, iphone, sex, email, avatar, `create`, `status` from `user` 
-		where id != 0 and username like #{pattern_name}
-	</select>
-	<!-- 查询所有被禁用的用户 -->
-	<select id="findDisableUserAll" resultType="user">
-		select id, username, account, iphone, sex, email, avatar, `create`, `status` from `user` 
-		where id != 0 and status = 0
-	</select>
-	<!-- 根据账号精准查询被禁用用户 -->
-	<select id="findDisableUserAllByAccount" parameterType="user" resultType="user">
-		select id, username, account, iphone, sex, email, avatar, `create`, `status` from `user` 
-		where id != 0 and account = #{account} and status = 0
-	</select>
-	<!-- 根据用户名模糊查询被禁用用户 -->
-	<select id="findDisableUserAllByUsername" parameterType="user" resultType="user">
-	<bind name="pattern_name" value="'%'+username+'%'"/>
-		select id, username, account, iphone, sex, email, avatar, `create`, `status` from `user` 
-		where id != 0 and username like #{pattern_name} and status = 0
+		<if test="user.status != null">
+			and status = #{user.status}
+		</if>
+		<choose>
+			<when test="user.account != null">
+				and account = #{user.account}
+			</when>
+			<when test="user.username != null">
+				<bind name="pattern_name" value="'%'+user.username+'%'"/>
+				and username like #{pattern_name}
+			</when>
+		</choose>
+		<if test="oldCreate != null">
+			and `create` &gt; #{oldCreate}
+		</if>
+		<if test="newCreate != null">
+			and `create` &lt; #{newCreate}
+		</if>
 	</select>
 	<!-- 禁用或启用用户 -->
 	<update id="disableUser" parameterType="Integer" keyProperty="id" useGeneratedKeys="true">

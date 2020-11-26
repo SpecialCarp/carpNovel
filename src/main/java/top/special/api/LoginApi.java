@@ -1,8 +1,11 @@
 package top.special.api;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import top.special.pojo.Admin;
@@ -13,15 +16,16 @@ public class LoginApi {
 	
 	@Autowired
 	private LoginService loginService;
-//	@Autowired
-//	private FindAdminService findAdminService;
 
 	@CrossOrigin
 	@RequestMapping(value="/back/index")
 	// 管理员登陆
-	public Object AdminLogin(Admin a) {
+	@ResponseBody
+	public Object AdminLogin(HttpSession session, Admin a) {
+		// System.out.println(a);
 		Admin admin = loginService.adminLogin(a);
 		if(admin != null) {
+			// System.out.println(admin);
 			return admin;
 		}else {
 			return "NoExist";
