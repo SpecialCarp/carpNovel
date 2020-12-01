@@ -5,10 +5,10 @@
 
 	<!-- 设置 -->
 	<settings>
-		<!-- 缓存：开 -->
-		<setting name="cacheEnabled" value="true"/>
-		<!-- 懒加载：开 -->
-		<setting name="lazyLoadingEnabled" value="true"/>
+		<!-- 缓存：开 
+		<setting name="cacheEnabled" value="true"/>-->
+		<!-- 懒加载：开 
+		<setting name="lazyLoadingEnabled" value="true"/>-->
 		<!-- 驼峰命名法：开 -->
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>

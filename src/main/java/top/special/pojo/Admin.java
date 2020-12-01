@@ -130,4 +130,5 @@ public class Admin {
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
+
 }

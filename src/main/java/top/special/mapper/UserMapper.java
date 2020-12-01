@@ -19,6 +19,12 @@ public interface UserMapper {
 	public List<User> findByCondition(@Param("user") User user,@Param("oldCreate") Date oldCreate,@Param("newCreate") Date newCreate);
 
 	/**
+	 **根据id查询用户
+	 * @return User
+	 */
+	public User findById(Integer id);
+	
+	/**
 	 **禁用或启用用户账号
 	 * @param id
 	 * @return rows

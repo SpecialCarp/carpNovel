@@ -16,7 +16,7 @@ public class DateConvert implements Converter<String, Date> {
 		try {
 			day = sdf.parse(source);
 		} catch (ParseException e) {
-			throw new IllegalArgumentException("格式错误");
+			return null;
 		}
 		return day;
 	}

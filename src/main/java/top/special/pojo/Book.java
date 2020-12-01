@@ -14,6 +14,7 @@ public class Book {
 	private Integer id;			// 主键
 	private String title;		// 书名
 	private String avatar;		// 封面
+	private String author;		// 作者
 	private String introducty;	// 简介
 	private Double score;		// 评分
 	private User user;			// 上传人
@@ -31,6 +32,7 @@ public class Book {
 		return "Book [id=" + id + ", title=" + title + ", avatar=" + avatar + ", introducty=" + introducty + ", score="
 				+ score + ", user=" + user + ", create=" + create + ", hits=" + hits + ", status=" + status + "]";
 	}
+
 
 	// getter and setter
 	public Integer getId() {
@@ -55,6 +57,14 @@ public class Book {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	public String getIntroducty() {

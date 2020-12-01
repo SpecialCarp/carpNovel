@@ -31,13 +31,8 @@
 		</property>
 	</bean>
 
-	<!-- 配置静态资源的访问映射，此配置中的文件，将不被前端控制器拦截 -->
-	<mvc:resources location="/js/" mapping="/js/**" />
-	<mvc:resources location="/images/" mapping="/images/**" />
-	<mvc:resources location="/css/" mapping="/css/**" />
-	<mvc:resources location="/html/" mapping="/html/**" />
-	<mvc:resources location="/lib/" mapping="/lib/**" />
-	<mvc:resources location="/fonts/" mapping="/fonts/**" />
+	<!-- 配置静态资源的访问映射，此配置中的文件，将不被前端控制器拦截
+	<mvc:resources location="/js/" mapping="/js/**" /> -->
 
 	<!-- 视图解析器 -->
 	<bean id="viewResolver"
@@ -47,13 +42,5 @@
 		<!-- 后缀 -->
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/back/user/*"/>
-			<mvc:exclude-mapping path=""/>
-			<bean class="top.special.util.interceptor.AdminAccessInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
 	
 </beans>

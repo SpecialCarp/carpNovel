@@ -1,11 +1,14 @@
 package top.special.service;
 
 import java.util.Date;
-import java.util.List;
+
+import com.github.pagehelper.PageInfo;
 
 import top.special.pojo.User;
 
 public interface UserService {
 
-	public List<Object> findByCondition(Integer pageNo, User user, Date oldCreate, Date newCreate);
+	public PageInfo<User> findByCondition(Integer pageNo, User user, Date oldCreate, Date newCreate);
+	
+	public Integer disableUser(Integer id);
 }

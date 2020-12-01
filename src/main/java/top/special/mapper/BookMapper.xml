@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.special.mapper.BookMapper">
+	<resultMap type="book" id="findBookWhithUser">
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="avatar" property="avatar"/>
+		<result column="author" property="author"/>
+		<result column="introducty" property="introducty"/>
+		<result column="score" property="score"/>
+		<result column="create" property="create"/>
+		<result column="hits" property="hits"/>
+		<result column="status" property="status"/>
+		<association property="user" column="uploader" javaType="user" 
+			select="top.special.mapper.UserMapper.findById"/>
+	</resultMap>
+	<select id="findByCondition" resultMap="findBookWhithUser">
+		select * from `book` where `status` != 3
+		<trim prefix="and (" prefixOverrides="or" suffix=")">
+			<if test='title != null'>
+				<bind name="pattern_title" value="'%'+title+'%'"/> 
+				or title like #{pattern_title}
+			</if>
+			<if test='author != null'>
+				<bind name="pattern_author" value="'%'+author+'%'"/> 
+				or author like #{pattern_author}
+			</if>
+			<if test='introducty != null'>
+				<bind name="pattern_introducty" value="'%'+introducty+'%'"/> 
+				or introducty like #{pattern_introducty}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="fingByUploader" resultType="book">
+		select * from `book` where `status` != 3 and uploader = #{u_id}
+	</select>
+</mapper>

@@ -1,6 +1,5 @@
 package top.special.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +19,13 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	public List<Object> findByCondition(Integer pageNo, User user, Date oldCreate, Date newCreate) {
+	public PageInfo<User> findByCondition(Integer pageNo, User user, Date oldCreate, Date newCreate) {
+		if(user.getAccount()=="") {
+			user.setAccount(null);
+		}
+		if(user.getUsername()=="") {
+			user.setUsername(null);
+		}
 		// 每页显示记录数
 		Integer pageSize=10;
 		// 下一个方法使用分页查询
@@ -29,14 +34,18 @@ public class UserServiceImpl implements UserService {
 		// 处理分页查询的详细信息
 		PageInfo<User> pageInfo=new PageInfo<User>(userList);
 		
-		List<User> userAllList = userMapper.findByCondition(user, oldCreate, newCreate);
+		// List<User> userAllList = userMapper.findByCondition(user, oldCreate, newCreate);
 		
-		List<Object> list = new ArrayList<Object>();
+		// List<Object> list = new ArrayList<Object>();
 		
-		list.add(pageInfo);
-		list.add(userAllList);
+		// list.add(pageInfo);
+		// list.add(userAllList);
 		
-		return list;
+		return pageInfo;
+	}
+
+	public Integer disableUser(Integer id) {
+		return userMapper.disableUser(id);
 	}
 
 }
