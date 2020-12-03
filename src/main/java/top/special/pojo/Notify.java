@@ -19,6 +19,14 @@ public class Notify {
 
 	// 无参构造
 	public Notify() {}
+	
+	public Notify(Admin admin, User user, Report report, String content, Date create) {
+		this.admin = admin;
+		this.user = user;
+		this.report = report;
+		this.content = content;
+		this.create = create;
+	}
 
 	@Override
 	public String toString() {

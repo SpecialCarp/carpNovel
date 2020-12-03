@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import top.special.pojo.Admin;
 import top.special.pojo.Book;
+import top.special.pojo.Notify;
+import top.special.pojo.Report;
+import top.special.pojo.User;
 import top.special.service.BookSevice;
 
 @CrossOrigin
@@ -26,8 +30,36 @@ public class BackBookApi {
 	}
 	
 	@RequestMapping(value = "/findBook")
-	public Object findBookByCondition(@RequestParam(defaultValue="1",required=true,value="pageNo")Integer pageNo, 
-			Book book, Date oldCreate, Date newCreate){
-		return bookSevice.findByCondition(pageNo, book, oldCreate, newCreate);
+	public Object findBookByCondition(@RequestParam(defaultValue="1",required=true,value="pageNo")Integer pageNo, Book book, Integer status){
+		book.setStatus(status);
+		System.out.println(pageNo);
+		return bookSevice.findByCondition(pageNo, book);
 	}
+	
+	@RequestMapping(value = "/releasedBook")
+	public Integer releasedBookById
+		(Notify notify, Admin admin,User user, Book book, Report report, 
+				Integer a_id, Integer u_id, Integer b_id, Integer r_id, 
+				String reason, Integer statu) {
+		admin.setId(a_id);
+		user.setId(u_id);
+		if(r_id != null) {
+			report.setId(r_id);
+			notify.setReport(report);
+		}
+		System.out.println(a_id+","+u_id+","+b_id+","+r_id+","+reason+","+statu);
+		notify.setAdmin(admin);
+		notify.setUser(user);
+		notify.setContent(reason);
+		notify.setCreate(new Date());
+		book.setId(b_id);
+		book.setStatus(statu);
+		return bookSevice.releasedById(notify, book, reason);
+	}
+	
+	@RequestMapping(value = "/findBookReports")
+	public List<Report> findBookReports(Boolean status){
+		return bookSevice.findBookReports(status);
+	}
+	
 }

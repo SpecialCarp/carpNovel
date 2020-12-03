@@ -1,6 +1,5 @@
 package top.special.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import top.special.mapper.BookMapper;
+import top.special.mapper.NotifyMapper;
+import top.special.mapper.ReportMapper;
 import top.special.pojo.Book;
+import top.special.pojo.Notify;
+import top.special.pojo.Report;
 import top.special.service.BookSevice;
 
 @Service
@@ -18,9 +21,12 @@ public class BookServiceImpl implements BookSevice{
 
 	@Autowired
 	private BookMapper bookMapper;
+	@Autowired
+	private NotifyMapper notifyMapper;
+	@Autowired
+	private ReportMapper reportMapper;
 	
-	public PageInfo<Book> findByCondition(Integer pageNo, 
-			Book book, Date oldCreate, Date newCreate) {
+	public PageInfo<Book> findByCondition(Integer pageNo, Book book) {
 		if(book.getTitle()=="") {
 			book.setTitle(null);
 		}
@@ -39,6 +45,20 @@ public class BookServiceImpl implements BookSevice{
 
 	public List<Book> findByUserId(Integer u_id) {
 		return bookMapper.fingByUploader(u_id);
+	}
+
+	public Integer releasedById(Notify notify, Book book, String reason) {
+		System.out.println(notify.getReport());
+		if(notify.getReport() != null) {
+			reportMapper.trueReport(notify.getReport().getId());
+		}
+		notifyMapper.addNotify(notify);
+		Integer rows = bookMapper.releasedById(book);
+		return rows;
+	}
+	
+	public List<Report> findBookReports(Boolean status){
+		return reportMapper.findByPojoId(1,status);
 	}
 
 }

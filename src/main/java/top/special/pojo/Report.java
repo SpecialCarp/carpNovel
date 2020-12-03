@@ -17,6 +17,7 @@ public class Report {
 	private User user;			// 举报人
 	private String content;		// 举报内容
 	private Date create;		// 举报时间
+	private Boolean status;		// 状态 0：未处理，1：已处理
 	
 	//无参构造
 	public Report() {}
@@ -24,7 +25,7 @@ public class Report {
 	@Override
 	public String toString() {
 		return "Report [id=" + id + ", book=" + book + ", booklist=" + booklist + ", comment=" + comment + ", user="
-				+ user + ", content=" + content + ", create=" + create + "]";
+				+ user + ", content=" + content + ", create=" + create + ", status=" + status + "]";
 	}
 
 	// getter and setter
@@ -82,6 +83,14 @@ public class Report {
 
 	public void setCreate(Date create) {
 		this.create = create;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 }

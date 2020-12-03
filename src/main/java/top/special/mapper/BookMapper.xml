@@ -31,9 +31,20 @@
 				or introducty like #{pattern_introducty}
 			</if>
 		</trim>
+		<if test="status != null">
+			and `status` = #{status}
+		</if>
 	</select>
 	
 	<select id="fingByUploader" resultType="book">
 		select * from `book` where `status` != 3 and uploader = #{u_id}
+	</select>
+	
+	<update id="releasedById" parameterType="book" keyProperty="id" useGeneratedKeys="true">
+		update book set `status` = #{status} where id = #{id}
+	</update>
+	
+	<select id="findById" resultType="book">
+		select * from book where `status` != 3 and id = #{id}
 	</select>
 </mapper>
