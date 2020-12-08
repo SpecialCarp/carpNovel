@@ -34,6 +34,6 @@
 		</if>
 	</select>
 	<update id="trueReport" keyProperty="id" useGeneratedKeys="true">
-		update report set `status` = 1 where id = #{id}
+		update report set `status` = 0 where id = #{id}
 	</update>
 </mapper>

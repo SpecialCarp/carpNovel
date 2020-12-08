@@ -23,16 +23,18 @@ public class Book {
 	private Integer status;		// 状态 0：禁用；1：启用；2：待发布；3：未发布
 	private List<Classify> classifies;	// 所属类型
 	private List<Chapter> chapters;		// 章节目录
+	private List<Comment> comments;		// 留言评论
 	
 	// 无参构造
 	public Book() {}
 	
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", avatar=" + avatar + ", introducty=" + introducty + ", score="
-				+ score + ", user=" + user + ", create=" + create + ", hits=" + hits + ", status=" + status + "]";
+		return "Book [id=" + id + ", title=" + title + ", avatar=" + avatar + ", author=" + author + ", introducty="
+				+ introducty + ", score=" + score + ", user=" + user + ", create=" + create + ", hits=" + hits
+				+ ", status=" + status + ", classifies=" + classifies + ", chapters=" + chapters + ", comments="
+				+ comments + "]";
 	}
-
 
 	// getter and setter
 	public Integer getId() {
@@ -129,6 +131,14 @@ public class Book {
 
 	public void setChapters(List<Chapter> chapters) {
 		this.chapters = chapters;
+	}
+	
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 	
 }

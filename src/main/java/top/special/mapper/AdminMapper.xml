@@ -54,10 +54,6 @@
 	</update> -->
 	
 	<!-- 查 -->
-	<select id="findAdminByAccountAndPassword" parameterType="admin" resultType="admin">
-		select * from admin 
-		where account = #{account} and `password` = #{password} and `status` = 1
-	</select>
 	
 	<!-- <select id="findAdminByIdOrAccountOrIphone" parameterType="admin" resultType="admin">
 		select * from admin where 
@@ -104,8 +100,44 @@
 		select id,name from admin where id = #{id}
 	</select> -->
 	
-	<select id="findAdminAll" resultType="admin">
-		select * from admin
+	<select id="findAll" resultType="admin">
+		select * from admin 
+		<trim prefix="where" prefixOverrides="and">
+			<if test="admin.status != null">
+				and status = #{admin.status}
+			</if>
+			<if test="access != null">
+				<choose>
+					<when test="access == 1">
+						and user_access = true
+					</when>
+					<when test="access == 2">
+						and book_access = true
+					</when>
+					<when test="access == 3">
+						and booklist_access = true
+					</when>
+					<when test="access == 4">
+						and comment_access = true
+					</when>
+				</choose>
+			</if>
+			<choose>
+				<when test="admin.account != null">
+					and account = #{admin.account}
+				</when>
+				<when test="admin.name != null">
+					<bind name="pattern_name" value="'%'+admin.name+'%'"/>
+					and `name` like #{pattern_name}
+				</when>
+			</choose>
+			<if test="oldCreate != null">
+				and `create` &gt; #{oldCreate}
+			</if>
+			<if test="newCreate != null">
+				and `create` &lt; #{newCreate}
+			</if>
+		</trim>
 	</select>
 	
 </mapper>

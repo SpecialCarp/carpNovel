@@ -16,8 +16,8 @@ public class Comment {
 	private Book book;				// 被留言书
 	private Comment comment;		// 被回复人
 	private Booklist booklist;		// 被留言书单
-	private Date datetime;			// 留言时间
-	private Boolean status;			// 状态 0：删除；1：可查
+	private Date create;			// 留言时间
+	private Integer status;			// 状态 0：删除；1：可查
 	
 	// 无参构造
 	public Comment() {}
@@ -25,7 +25,7 @@ public class Comment {
 	@Override
 	public String toString() {
 		return "Comment [id=" + id + ", content=" + content + ", user=" + user + ", book=" + book + ", comment="
-				+ comment + ", booklist=" + booklist + ", datetime=" + datetime + ", status=" + status + "]";
+				+ comment + ", booklist=" + booklist + ", create=" + create + ", status=" + status + "]";
 	}
 
 	// getter and setter
@@ -77,19 +77,19 @@ public class Comment {
 		this.booklist = booklist;
 	}
 
-	public Date getDatetime() {
-		return datetime;
-	}
-
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
-	}
-
-	public Boolean getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Date getCreate() {
+		return create;
+	}
+
+	public void setCreate(Date create) {
+		this.create = create;
 	}
 }

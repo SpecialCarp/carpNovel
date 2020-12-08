@@ -36,15 +36,25 @@
 		</if>
 	</select>
 	
-	<select id="fingByUploader" resultType="book">
-		select * from `book` where `status` != 3 and uploader = #{u_id}
-	</select>
-	
-	<update id="releasedById" parameterType="book" keyProperty="id" useGeneratedKeys="true">
-		update book set `status` = #{status} where id = #{id}
-	</update>
-	
-	<select id="findById" resultType="book">
-		select * from book where `status` != 3 and id = #{id}
-	</select>
+	<!-- <resultMap type="book" id="bookResult1">
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="avatar" property="avatar"/>
+		<result column="author" property="author"/>
+		<result column="introducty" property="introducty"/>
+		<result column="score" property="score"/>
+		<result column="user" property="user"/>
+		<result column="create" property="create"/>
+		<result column="hits" property="hits"/>
+		<result column="status" property="status"/>
+		<collection property="classifies" column="id" javaType="classify"
+			select="top.special.mapper.ClassifyMapper.findByBId"/>
+		<collection property="chapters" column="id" javaType="chapter"
+			select="top.special.mapper.ChapterMapper.findByBId"/>
+		<collection property="comments" column="id" javaType="comment"
+			select="top.special.mapper.CommentMapper.findByBId"/>
+	</resultMap>
+	<select id="findByIdResultBook" resultMap="bookResult1">
+		select * from book where id = #{id}
+	</select> -->
 </mapper>

@@ -59,6 +59,8 @@ public class BackBookApi {
 	
 	@RequestMapping(value = "/findBookReports")
 	public List<Report> findBookReports(Boolean status){
+		System.out.println(status);
+		System.out.println(bookSevice.findBookReports(status));
 		return bookSevice.findBookReports(status);
 	}
 	

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import top.special.pojo.User;
 import top.special.service.UserService;
 
-@RestControllerAdvice
 @CrossOrigin
+@RestControllerAdvice
 @RequestMapping("/back/user")
 public class BackUserApi {
 

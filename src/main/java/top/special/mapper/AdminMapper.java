@@ -1,6 +1,11 @@
 package top.special.mapper;
 
+import java.util.Date;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import top.special.pojo.Admin;
 
@@ -9,6 +14,7 @@ import top.special.pojo.Admin;
  * @author SpecialCarp
  * 2020年11月20日 上午10:51:35
  */
+@Mapper
 public interface AdminMapper {
 
 	/**
@@ -51,6 +57,7 @@ public interface AdminMapper {
 	 * @param admin
 	 * @return
 	 */
+	@Select("select * from admin where account = #{account} and `password` = #{password} and `status` = 1")
 	public Admin findAdminByAccountAndPassword(Admin admin);
 	
 	/**
@@ -71,5 +78,8 @@ public interface AdminMapper {
 	 **查询全部管理员
 	 * @return List<Admin>
 	 */
-	public List<Admin> findAdminAll();
+	public List<Admin> findAll
+		(@Param("admin") Admin admin, @Param("access") Integer access, 
+				@Param("oldCreate") Date oldCreate, @Param("newCreate") Date newCreate);
+
 }
