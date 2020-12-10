@@ -27,16 +27,16 @@ public class CommentServiceImpl implements CommentService {
 	private NotifyMapper notifyMapper;
 	
 	public List<Report> findCommentReport(Boolean status) {
-		return reportMapper.findByPojoId(3, status);
+		return reportMapper.findReportByPojoIdResultReportWithPojo(3, status);
 	}
 
 	public Integer releasedComment(Admin admin, User user, Comment comment, Report report, String reason) {
 		// 处理举报
-		reportMapper.trueReport(report.getId());
+		reportMapper.changeReportSetStatusById(report.getId());
 		// 通知被举报人
 		Notify notifyForUser = new Notify(admin, user, report, reason, new Date());
-		notifyMapper.addNotify(notifyForUser);
-		return commentMapper.disableById(comment);
+		notifyMapper.saveNotify(notifyForUser);
+		return commentMapper.disableCommentById(comment);
 	}
 
 }

@@ -8,19 +8,22 @@
 		<result column="create" property="create"/>
 		<result column="status" property="status"/>
 		<association property="user" column="user_id" javaType="user"
-			select="top.special.mapper.UserMapper.findById"/>
+			select="top.special.mapper.UserMapper.findUserById"/>
 		<association property="book" column="book_id" javaType="book"
-			select="top.special.mapper.BookMapper.findById"/>
+			select="top.special.mapper.BookMapper.findBookById"/>
 		<association property="comment" column="comment_id" javaType="comment"
-			select="top.special.mapper.CommentMapper.findById"/>
+			select="top.special.mapper.CommentMapper.findCommentById"/>
 		<association property="booklist" column="booklist_id" javaType="booklist"
-			select="top.special.mapper.BooklistMapper.findById"/>
+			select="top.special.mapper.BooklistMapper.findBooklistById"/>
 	</resultMap>
-	<select id="findById" resultMap="commentWithPojo">
+	<select id="findCommentByIdResultCommentWithPojo" resultMap="commentWithPojo">
 		select * from comment where id = #{id}
 	</select>
 	
-	<update id="disableById" parameterType="book" keyProperty="id" useGeneratedKeys="true">
-		update comment set status = #{status} where id = #{id}
-	</update>
+	<select id="findCommentByBIdResultLastComment" resultType="comment">
+		select * from `comment` where book_id = #{b_id} 
+		<if test="last != null">
+			order by id desc limit #{last}
+		</if>
+	</select>
 </mapper>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="top.special.mapper.BookMapper">
-	<resultMap type="book" id="findBookWhithUser">
+	<resultMap type="book" id="bookWhithUploader">
 		<id column="id" property="id"/>
 		<result column="title" property="title"/>
 		<result column="avatar" property="avatar"/>
@@ -13,9 +13,9 @@
 		<result column="hits" property="hits"/>
 		<result column="status" property="status"/>
 		<association property="user" column="uploader" javaType="user" 
-			select="top.special.mapper.UserMapper.findById"/>
+			select="top.special.mapper.UserMapper.findUserById"/>
 	</resultMap>
-	<select id="findByCondition" resultMap="findBookWhithUser">
+	<select id="findBookByConditionResultBookWhithUploader" resultMap="bookWhithUploader">
 		select * from `book` where `status` != 3
 		<trim prefix="and (" prefixOverrides="or" suffix=")">
 			<if test='title != null'>
@@ -35,26 +35,4 @@
 			and `status` = #{status}
 		</if>
 	</select>
-	
-	<!-- <resultMap type="book" id="bookResult1">
-		<id column="id" property="id"/>
-		<result column="title" property="title"/>
-		<result column="avatar" property="avatar"/>
-		<result column="author" property="author"/>
-		<result column="introducty" property="introducty"/>
-		<result column="score" property="score"/>
-		<result column="user" property="user"/>
-		<result column="create" property="create"/>
-		<result column="hits" property="hits"/>
-		<result column="status" property="status"/>
-		<collection property="classifies" column="id" javaType="classify"
-			select="top.special.mapper.ClassifyMapper.findByBId"/>
-		<collection property="chapters" column="id" javaType="chapter"
-			select="top.special.mapper.ChapterMapper.findByBId"/>
-		<collection property="comments" column="id" javaType="comment"
-			select="top.special.mapper.CommentMapper.findByBId"/>
-	</resultMap>
-	<select id="findByIdResultBook" resultMap="bookResult1">
-		select * from book where id = #{id}
-	</select> -->
 </mapper>

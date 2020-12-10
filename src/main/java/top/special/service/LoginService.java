@@ -1,5 +1,7 @@
 package top.special.service;
 
+import java.util.List;
+
 import top.special.pojo.Admin;
 import top.special.pojo.User;
 
@@ -23,5 +25,5 @@ public interface LoginService {
 	 * @param user(account, password)
 	 * @return user
 	 */
-	public User userLogin(User user);
+	public List<Object> userLogin(User user);
 }

@@ -1,7 +1,6 @@
 package top.special.pojo;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  **书籍类
@@ -21,9 +20,6 @@ public class Book {
 	private Date create;		// 创建时间
 	private Integer hits;		// 点击量
 	private Integer status;		// 状态 0：禁用；1：启用；2：待发布；3：未发布
-	private List<Classify> classifies;	// 所属类型
-	private List<Chapter> chapters;		// 章节目录
-	private List<Comment> comments;		// 留言评论
 	
 	// 无参构造
 	public Book() {}
@@ -32,8 +28,7 @@ public class Book {
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", avatar=" + avatar + ", author=" + author + ", introducty="
 				+ introducty + ", score=" + score + ", user=" + user + ", create=" + create + ", hits=" + hits
-				+ ", status=" + status + ", classifies=" + classifies + ", chapters=" + chapters + ", comments="
-				+ comments + "]";
+				+ ", status=" + status + "]";
 	}
 
 	// getter and setter
@@ -115,30 +110,6 @@ public class Book {
 
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-
-	public List<Classify> getClassifies() {
-		return classifies;
-	}
-
-	public void setClassifies(List<Classify> classifies) {
-		this.classifies = classifies;
-	}
-
-	public List<Chapter> getChapters() {
-		return chapters;
-	}
-
-	public void setChapters(List<Chapter> chapters) {
-		this.chapters = chapters;
-	}
-	
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
 	}
 	
 }

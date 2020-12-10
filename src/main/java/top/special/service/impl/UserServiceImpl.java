@@ -18,6 +18,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	public User findUserById(Integer id) {
+		return userMapper.findUserById(id);
+	}
 	
 	public PageInfo<User> findByCondition(Integer pageNo, User user, Date oldCreate, Date newCreate) {
 		if(user.getAccount()=="") {
@@ -30,7 +34,7 @@ public class UserServiceImpl implements UserService {
 		Integer pageSize=10;
 		// 下一个方法使用分页查询
 		PageHelper.startPage(pageNo, pageSize);
-		List<User> userList = userMapper.findByCondition(user, oldCreate, newCreate);
+		List<User> userList = userMapper.findUserByCondition(user, oldCreate, newCreate);
 		// 处理分页查询的详细信息
 		PageInfo<User> pageInfo=new PageInfo<User>(userList);
 		
@@ -46,6 +50,10 @@ public class UserServiceImpl implements UserService {
 
 	public Integer disableUser(Integer id) {
 		return userMapper.disableUser(id);
+	}
+
+	public Integer changeUserInfo(User user) {
+		return userMapper.changeUserSetInfoById(user);
 	}
 
 }

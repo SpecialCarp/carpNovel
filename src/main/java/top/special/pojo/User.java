@@ -24,7 +24,7 @@ public class User {
 	
 	// 无参构造
 	public User() {}
-
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", account=" + account + ", password=" + password

@@ -8,15 +8,15 @@
 		<result column="create" property="create"/>
 		<result column="status" property="status"/>
 		<association property="book" column="book_id" javaType="book" 
-			select="top.special.mapper.BookMapper.findById"/>
+			select="top.special.mapper.BookMapper.findBookById"/>
 		<association property="booklist" column="booklist_id" javaType="booklist" 
-			select="top.special.mapper.BooklistMapper.findById"/>
+			select="top.special.mapper.BooklistMapper.findBooklistById"/>
 		<association property="comment" column="comment_id" javaType="comment" 
-			select="top.special.mapper.CommentMapper.findById"/>
+			select="top.special.mapper.CommentMapper.findCommentById"/>
 		<association property="user" column="user_id" javaType="user" 
-			select="top.special.mapper.UserMapper.findById"/>
+			select="top.special.mapper.UserMapper.findUserById"/>
 	</resultMap>
-	<select id="findByPojoId" resultMap="reportWithPojo">
+	<select id="findReportByPojoIdResultReportWithPojo" resultMap="reportWithPojo">
 		select * from report where 
 		<choose>
 			<when test="pojoId == 1">
@@ -33,7 +33,20 @@
 			and `status` = #{status}
 		</if>
 	</select>
-	<update id="trueReport" keyProperty="id" useGeneratedKeys="true">
-		update report set `status` = 0 where id = #{id}
-	</update>
+	
+	<insert id="saveReport">
+		insert into report (
+		<choose>
+			<when test="pojoId == 1">
+				book_id, 
+			</when>
+			<when test="pojoId == 2">
+				booklist_id, 
+			</when>
+			<when test="pojoId == 3">
+				comment_id, 
+			</when>
+		</choose>
+		user_id,content,`create`) values (#{p_id},#{u_id},#{report.content},#{report.create})
+	</insert>
 </mapper>

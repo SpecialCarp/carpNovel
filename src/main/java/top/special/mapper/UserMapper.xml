@@ -2,18 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="top.special.mapper.UserMapper">
-	<!-- 注册 -->
-	<insert id="add" keyProperty="id" useGeneratedKeys="true">
-		insert `user` into (username, password, sex, `create`) values (#{username}, #{password}, #{sex}, #{create})
-	</insert>
-
 	<!-- 查询 -->
-	
-	<select id="findByAccountAndPassword" resultType="user">
-		select * from `user` where account = #{account} and password = #{password}
-	</select>
-	
-	<select id="findByCondition" resultType="user">
+	<select id="findUserByCondition" resultType="user">
 		select * from `user`
 		where id != 0
 		<if test="user.status != null">

@@ -3,7 +3,9 @@ package top.special.mapper;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -22,6 +24,10 @@ public interface AdminMapper {
 	 * @param admin(name, account, password, iphone, user_access, book_access, comment_access, booklist_access, create)
 	 * @return rows(0:error; 1:success)
 	 */
+	@Insert("insert into "
+			+ "admin (name, account, password, iphone, user_access, book_access, comment_access, booklist_access, create) "
+			+ "values (#{name}, #{account}, #{password}, #{iphone}, #{userAccess}, #{bookAccess}, #{commentAccess}, #{booklistAccess}, #{create})")
+	@Options(keyProperty="id", useGeneratedKeys=true)
 	public Integer sevaAdmin(Admin admin);
 	
 	/**
@@ -78,7 +84,7 @@ public interface AdminMapper {
 	 **查询全部管理员
 	 * @return List<Admin>
 	 */
-	public List<Admin> findAll
+	public List<Admin> findAdminAll
 		(@Param("admin") Admin admin, @Param("access") Integer access, 
 				@Param("oldCreate") Date oldCreate, @Param("newCreate") Date newCreate);
 

@@ -30,9 +30,7 @@ public class BackBookApi {
 	}
 	
 	@RequestMapping(value = "/findBook")
-	public Object findBookByCondition(@RequestParam(defaultValue="1",required=true,value="pageNo")Integer pageNo, Book book, Integer status){
-		book.setStatus(status);
-		System.out.println(pageNo);
+	public Object findBookByCondition(@RequestParam(defaultValue="1",required=true,value="pageNo")Integer pageNo, Book book){
 		return bookSevice.findByCondition(pageNo, book);
 	}
 	

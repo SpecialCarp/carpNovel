@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.special.mapper.ChapterMapper">
+	<select id="findChapterByBIdResultLastChapter" resultType="chapter">
+		select * from chapter where book_id = #{b_id} 
+		<if test="last != null">
+			order by number desc limit #{last}
+		</if>
+	</select>
+	
+	<resultMap type="chapter" id="chapterWithContent">
+		<id column="id" property="id"/>
+		<result column="number" property="number"/>
+		<result column="title" property="title"/>
+		<result column="bookId" property="bookId"/>
+		<result column="create" property="create"/>
+		<result column="words" property="words"/>
+		<result column="status" property="status"/>
+		<association property="content" javaType="content">
+			<id column="c_id" property="id"/>
+			<result column="content" property="content"/>
+		</association>
+	</resultMap>
+	<select id="findChapterByIdResultChapterWithContent" resultMap="chapterWithContent">
+		select ch.*,cn.id c_id,cn.content from chapter ch,content cn where ch.id = 1 and cn.id = ch.content_id
+	</select>
+</mapper>

@@ -1,47 +1,43 @@
 package top.special.api;
 
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import top.special.pojo.Admin;
+import top.special.pojo.User;
 import top.special.service.LoginService;
 
+@CrossOrigin
 @RestController
 public class LoginApi {
 	
 	@Autowired
 	private LoginService loginService;
 
-	@CrossOrigin
-	@RequestMapping(value="/back/index")
 	// 管理员登陆
-	@ResponseBody
-	public Object AdminLogin(HttpSession session, Admin a) {
-		// System.out.println(a);
+	@RequestMapping(value="/back/index")
+	public Object AdminLogin(Admin a) {
 		Admin admin = loginService.adminLogin(a);
 		if(admin != null) {
-			// System.out.println(admin);
 			return admin;
 		}else {
 			return "NoExist";
 		}
 	}
 	
-//	@RequestMapping(value="/list")
-//	// 管理员登陆
-//	public Object AdminList(@RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo) {
-//		Integer pageSize=3;//每页显示记录数
-//        
-//        List<Admin> list = findAdminService.findAll();//分页查询
-//        PageHelper.startPage(pageNo, pageSize);
-//        List<Admin> list1 = findAdminService.findAll();//分页查询
-//        List<Admin> list2 = findAdminService.findAll();//分页查询
-////        PageInfo<Admin> pageInfo=new PageInfo<Admin>(list);
-//        return list2;
-//	}
+	// 用户登录
+	@RequestMapping(value = "/front/index")
+	public Object UserLogin(User u) {
+		List<Object> list = loginService.userLogin(u);
+		if(list != null) {
+			return list;
+		}else {
+			return "NoExist";
+		}
+	}
+	
 }

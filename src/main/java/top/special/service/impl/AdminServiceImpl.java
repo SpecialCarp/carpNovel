@@ -30,7 +30,7 @@ public class AdminServiceImpl implements AdminService {
 		Integer pageSize=10;
 		// 下一个方法使用分页查询
 		PageHelper.startPage(pageNo, pageSize);
-		List<Admin> adminList = adminMapper.findAll(admin, access, oldCreate, newCreate);
+		List<Admin> adminList = adminMapper.findAdminAll(admin, access, oldCreate, newCreate);
 		PageInfo<Admin> pageInfo = new PageInfo<Admin>(adminList);
 		return pageInfo;
 	}

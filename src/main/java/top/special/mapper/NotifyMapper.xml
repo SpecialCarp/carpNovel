@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="top.special.mapper.NotifyMapper">
-	<insert id="addNotify" parameterType="notify" keyProperty="id">
+
+	<insert id="saveNotify" parameterType="notify" keyProperty="id">
 		insert into notify (admin_id,user_id,report_id,content,`create`) 
 		values (#{admin.id},#{user.id},
 		<choose>
@@ -15,4 +16,5 @@
 		</choose>
 		,#{content},#{create})
 	</insert>
+	
 </mapper>
